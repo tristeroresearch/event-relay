@@ -14,11 +14,11 @@ function onInsert(tableName) {
 async function main() {
     const { SUPABASE_DATA_URL, SUPABASE_DATA_KEY } = process.env;
 
-    if (!SUPABASE_URL) {
-        throw new Error('Missing SUPABASE_URL environment variable');
+    if (!SUPABASE_DATA_URL) {
+        throw new Error('Missing SUPABASE_DATA_URL environment variable');
     }
-    if (!SUPABASE_KEY) {
-        throw new Error('Missing SUPABASE_KEY environment variable');
+    if (!SUPABASE_DATA_KEY) {
+        throw new Error('Missing SUPABASE_DATA_KEY environment variable');
     }
 
     const supabaseData = createClient(SUPABASE_DATA_URL, SUPABASE_DATA_KEY);
