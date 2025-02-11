@@ -12,7 +12,7 @@ function onInsert(tableName) {
 }
 
 async function main() {
-    const { SUPABASE_URL, SUPABASE_KEY } = process.env;
+    const { SUPABASE_DATA_URL, SUPABASE_DATA_KEY } = process.env;
 
     if (!SUPABASE_URL) {
         throw new Error('Missing SUPABASE_URL environment variable');
@@ -21,7 +21,7 @@ async function main() {
         throw new Error('Missing SUPABASE_KEY environment variable');
     }
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseData = createClient(SUPABASE_DATA_URL, SUPABASE_DATA_KEY);
 
     const server = http.createServer();
     const io = new Server(server, {
@@ -35,7 +35,7 @@ async function main() {
         console.log('Client connected:', socket.id);
     });
 
-    supabase
+    supabaseData
         .channel('realtime')
         .on('postgres_changes', onInsert('order_placed'), payload => onEvent('order_placed', payload.new, io))
         .on('postgres_changes', onInsert('match_created'), payload => onEvent('match_created', payload.new, io))
